@@ -1,0 +1,66 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workouts  WorkoutLog[]
+  routines Routine[]
+}
+
+
+model Exercise {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  muscleGroup String   
+  createdAt   DateTime @default(now())
+
+  sets        ExerciseSet[]
+}
+
+model WorkoutLog {
+  id        String   @id @default(cuid())
+  date      DateTime @default(now())
+  notes     String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  routineId String?
+  routine   Routine? @relation(fields: [routineId], references: [id])
+  createdAt DateTime @default(now())
+
+  sets      ExerciseSet[]
+}
+
+model ExerciseSet {
+  id           String     @id @default(cuid())
+  reps         Int
+  weight       Float?     
+  exerciseId   String
+  exercise     Exercise   @relation(fields: [exerciseId], references: [id])
+  workoutLogId String
+  workoutLog   WorkoutLog @relation(fields: [workoutLogId], references: [id])
+}
+
+model Routine {
+  id          String   @id @default(cuid())
+  name        String   // "Push", "Pull", "Legs"...
+  description String?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+
+  workouts    WorkoutLog[]
+}

@@ -9,7 +9,15 @@ export default function LoginPage() {
         const email = form.email.value
         const password = form.password.value
 
-        await signIn('credentials', { email, password, redirectTo: '/dashboard' })
+        const result = await signIn('credentials', {
+            email,
+            password,
+            redirect: false
+        })
+
+        if (result?.ok) {
+            window.location.href = '/dashboard'
+        }
     }
 
     return (
@@ -21,8 +29,6 @@ export default function LoginPage() {
                 <button type="submit">Iniciar sesión</button>
                 <a href="/register">¿No tienes cuenta? Regístrate</a>
             </form>
-
         </main>
     )
-
 }

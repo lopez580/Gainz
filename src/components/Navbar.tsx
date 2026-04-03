@@ -16,7 +16,10 @@ export default function Navbar() {
             <span>Gainz</span>
             <div>
                 {links.map(link => (
-                    <Link href={link.href} className={pathname === link.href ? 'nav__link--active' : 'nav__link'}>
+                    <Link
+                        key={link.href}
+                        href={link.href}
+                        className={pathname === link.href ? 'nav__link--active' : 'nav__link'}>
                         {link.label}
                     </Link>
                 ))}

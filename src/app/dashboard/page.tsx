@@ -1,5 +1,23 @@
 
-export default function DashboardPage() {
+import { auth } from "@/auth"
+import { BicepsFlexed, Flame, Scale, Ham } from 'lucide-react'
+import { prisma } from "@/lib/prisma"
+
+
+export default async function DashboardPage() {
+    const session = await auth()
+    const userId = session?.user?.id
+    const workouts = await prisma.workoutLog.findMany({
+        where: { userId },
+        orderBy: { date: 'desc' },
+        take: 5,
+        include: {
+            routine: true,
+            sets: { include: { exercise: true } }
+        }
+    })
+
+    //console.log(workouts)
     return (
         <main className="dashboard">
             <header className="dashboard__header">
@@ -14,25 +32,25 @@ export default function DashboardPage() {
 
             <section className="stats-grid">
                 <div className="stat-card stat-card--primary">
-                    <span className="stat-card__icon">🔥</span>
+                    <span className="stat-card__icon"><Scale size={40} /></span>
                     <p className="stat-card__label">Calorías hoy</p>
                     <h2 className="stat-card__value">1,840</h2>
                     <p className="stat-card__sub">Meta: 2,400 kcal</p>
                 </div>
                 <div className="stat-card">
-                    <span className="stat-card__icon">💪</span>
+                    <span className="stat-card__icon"><BicepsFlexed size={40} /></span>
                     <p className="stat-card__label">Entrenamientos</p>
-                    <h2 className="stat-card__value">3</h2>
+                    <h2 className="stat-card__value">{workouts.length}</h2>
                     <p className="stat-card__sub">Esta semana</p>
                 </div>
                 <div className="stat-card">
-                    <span className="stat-card__icon">⚖️</span>
+                    <span className="stat-card__icon"><Ham size={40} /></span>
                     <p className="stat-card__label">Proteína</p>
                     <h2 className="stat-card__value">98g</h2>
                     <p className="stat-card__sub">Meta: 150g</p>
                 </div>
                 <div className="stat-card">
-                    <span className="stat-card__icon">📅</span>
+                    <span className="stat-card__icon"><Flame color="red" size={40} /></span>
                     <p className="stat-card__label">Racha actual</p>
                     <h2 className="stat-card__value">7</h2>
                     <p className="stat-card__sub">días seguidos</p>
@@ -46,20 +64,17 @@ export default function DashboardPage() {
                         <a href="/entrenamientos" className="panel__link">Ver todo →</a>
                     </div>
                     <div className="routine-preview">
-                        <div className="routine-preview__badge">Push Day</div>
+                        <div className="routine-preview__badge">
+                            {workouts[0]?.routine?.name ?? 'sin rutina'}
+                        </div>
                         <ul className="exercise-list">
-                            <li className="exercise-item">
-                                <span className="exercise-item__name">Press de banca</span>
-                                <span className="exercise-item__detail">4 x 10 — 80kg</span>
-                            </li>
-                            <li className="exercise-item">
-                                <span className="exercise-item__name">Press inclinado</span>
-                                <span className="exercise-item__detail">3 x 12 — 60kg</span>
-                            </li>
-                            <li className="exercise-item">
-                                <span className="exercise-item__name">Aperturas</span>
-                                <span className="exercise-item__detail">3 x 15 — 20kg</span>
-                            </li>
+                            {workouts[0]?.sets?.map((set, i) => (
+                                <li key={i} className="exercise-item">
+                                    <span className="exercise-item__name">{set.exercise.name}</span>
+                                    <span className="exercise-item__detail">{set.reps} reps - {set.weight}kg</span>
+
+                                </li>
+                            )) ?? <li>No hay ejercicios registrados</li>}
                         </ul>
                         <button className="btn btn--primary">Registrar entrenamiento</button>
                     </div>

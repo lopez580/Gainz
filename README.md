@@ -1,6 +1,6 @@
 # Gainz 
 
-Aplicación web full-stack de fitness inspirada en aplicaciones como MyFitnessPal y Fitia desarrollada como proyecto de portfolio.
+Aplicación web full-stack de fitness inspirada en aplicaciones como MyFitnessPal y Fitia, desarrollada como proyecto de portafolio.
 
 ## ¿Qué es Gainz?
 
@@ -24,7 +24,7 @@ Gainz es una app para llevar el control de tu progreso en el gym y tu nutrición
 
 ## Estado del proyecto
 
-En desarrollo activo — proyecto personal de portfolio.
+En desarrollo activo — proyecto personal de portafolio.
 
 ## Instalación local
 

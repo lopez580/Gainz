@@ -1,11 +1,13 @@
 'use client'
 import Link from "next/link"
 import { redirect, usePathname } from "next/navigation"
+import { signOut } from "next-auth/react"
 
 const links = [
   { href: '/dashboard',     label: 'Dashboard',     icon: 'dashboard'     },
   { href: '/entrenamiento', label: 'Entrenamiento',  icon: 'fitness_center' },
   { href: '/nutricion',     label: 'Nutrición',      icon: 'restaurant'    },
+  { href: '/../login',         label: 'Login',          icon: 'login'         },
 ]
 
 export default function Navbar() {
@@ -46,6 +48,9 @@ export default function Navbar() {
             </button>
             <div className="h-8 w-8 rounded-full bg-primary/20 border border-primary/20 flex items-center justify-center text-primary text-sm font-bold font-headline">
               G
+            </div>
+            <div className="h-8 w-8 rounded-full bg-primary/20 border border-primary/20 flex items-center justify-center text-primary text-sm font-bold font-headline" onClick={() => signOut}>
+              logout
             </div>
           </div>
         </nav>

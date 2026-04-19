@@ -6,8 +6,7 @@ import { signOut } from "next-auth/react"
 const links = [
   { href: '/dashboard',     label: 'Dashboard',     icon: 'dashboard'     },
   { href: '/entrenamiento', label: 'Entrenamiento',  icon: 'fitness_center' },
-  { href: '/nutricion',     label: 'Nutrición',      icon: 'restaurant'    },
-  { href: '/../login',         label: 'Login',          icon: 'login'         },
+  { href: '/nutricion',     label: 'Nutrición',      icon: 'restaurant'    }
 ]
 
 export default function Navbar() {

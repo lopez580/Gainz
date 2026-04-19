@@ -1,6 +1,8 @@
-// src/app/entrenamientos/page.tsx
-
+'use client'
+import LogWorkout from "@/components/LogWorkout"
+import { useState } from "react"
 export default function EntrenamientosPage() {
+    const [isOpen, setIsOpen] = useState(false)
     return (
         <main className="pt-28 pb-20 px-6 max-w-7xl mx-auto min-h-screen">
             {/* Header Section */}
@@ -9,10 +11,13 @@ export default function EntrenamientosPage() {
                     <h1 className="text-5xl font-bold font-headline tracking-tighter text-on-surface mb-2">Workouts</h1>
                     <p className="font-label text-on-surface-variant tracking-wider uppercase text-xs">Performance Editorial / 2024</p>
                 </div>
-                <button className="group relative flex items-center justify-center gap-3 bg-gradient-to-r from-primary to-secondary px-8 py-4 rounded-xl font-headline font-bold text-on-primary shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all duration-300">
+                <button
+                onClick={() => setIsOpen(true)}
+                className="group relative flex items-center justify-center gap-3 bg-gradient-to-r from-primary to-secondary px-8 py-4 rounded-xl font-headline font-bold text-on-primary shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all duration-300">
                     <span className="material-symbols-outlined">add_circle</span>
                     Log Workout
                 </button>
+                <LogWorkout isOpen={isOpen} onclose={() => setIsOpen(false)} />
             </div>
 
             {/* Weekly Navigation */}

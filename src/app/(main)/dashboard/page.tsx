@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { calcularStreak } from "@/lib/utils";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -14,10 +15,11 @@ export default async function DashboardPage() {
       sets: { include: { exercise: true } },
     },
   });
+  const streak = calcularStreak(workouts);
 
   return (
     <main className="p-6 md:p-10 xl:p-12 min-h-screen bg-surface">
-  <div className="max-w-[1600px] xl:max-w-[1800px] 2xl:max-w-[2000px] mx-auto">
+  <div className="max-w-400 xl:max-w-450 2xl:max-w-500 mx-auto">
 
         {/* Dashboard Header & Streak */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
@@ -44,7 +46,7 @@ export default async function DashboardPage() {
                 Current Streak
               </p>
               <p className="text-3xl font-headline font-black text-on-surface leading-none">
-                15 Days
+                {streak} Days
               </p>
             </div>
           </div>

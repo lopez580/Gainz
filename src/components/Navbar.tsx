@@ -2,15 +2,19 @@
 import Link from "next/link"
 import { redirect, usePathname } from "next/navigation"
 import { signOut } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 const links = [
   { href: '/dashboard',     label: 'Dashboard',     icon: 'dashboard'     },
   { href: '/entrenamiento', label: 'Entrenamiento',  icon: 'fitness_center' },
-  { href: '/nutricion',     label: 'Nutrición',      icon: 'restaurant'    }
+  { href: '/nutricion',     label: 'Nutrición',      icon: 'restaurant'    },
+  
+
 ]
 
 export default function Navbar() {
   const pathname = usePathname()
+  const router =useRouter()
 
   return (
     <>
@@ -18,7 +22,7 @@ export default function Navbar() {
       <header className="bg-surface w-full border-b border-white/10 sticky top-0 z-50">
         <nav className="flex justify-between items-center px-6 h-16 w-full mx-auto">
           <div className="flex items-center gap-8">
-            <span  onClick={() => {redirect('/dashboard')}} className="text-2xl font-black tracking-tighter text-primary italic font-headline">
+            <span  onClick={() => router.push('/dashboard')} className="text-2xl font-black tracking-tighter text-primary italic font-headline">
               GAINZ
             </span>
             <div className="flex gap-6">
@@ -48,8 +52,11 @@ export default function Navbar() {
             <div className="h-8 w-8 rounded-full bg-primary/20 border border-primary/20 flex items-center justify-center text-primary text-sm font-bold font-headline">
               G
             </div>
-            <div className="h-8 w-8 rounded-full bg-primary/20 border border-primary/20 flex items-center justify-center text-primary text-sm font-bold font-headline" onClick={() => signOut}>
-              logout
+            <div className="h-8 w-8 rounded-full bg-primary/20 border border-primary/20 flex items-center justify-center text-primary text-sm font-bold font-headline" onClick={async () => {
+              await signOut({redirect: false});
+              router.push('/login');
+            }}>
+              out
             </div>
           </div>
         </nav>

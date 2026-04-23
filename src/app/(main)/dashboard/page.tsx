@@ -55,7 +55,7 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-12 xl:grid-cols-12 2xl:grid-cols-16 gap-8 xl:gap-10">
 
           {/* Central Feature: Calorie Ring (Optimized for space) */}
-          <div className="md:col-span-12 lg:col-span-7 xl:col-span-8 2xl:col-span-10 bg-surface-container rounded-2xl p-8 md:p-10 xl:p-12 flex flex-col items-center justify-center relative overflow-hidden min-h-[500px]">
+          <div className="md:col-span-12 lg:col-span-7 xl:col-span-8 2xl:col-span-10 bg-surface-container rounded-2xl p-8 md:p-10 xl:p-12 flex flex-col items-center justify-center relative overflow-hidden min-h-125">
 
             <div className="absolute top-0 right-0 w-100 h-100 bg-primary/5 rounded-full blur-[120px] -mr-48 -mt-48 pointer-events-none"></div>
             <div className="absolute bottom-0 left-0  w-100 h-100 bg-secondary/5 rounded-full blur-[120px] -ml-48 -mb-48 pointer-events-none"></div>
@@ -71,7 +71,7 @@ export default async function DashboardPage() {
                     fill="transparent"
                     r="45%"
                     stroke="currentColor"
-                    stroke-width="10"
+                    strokeWidth="10"
                   ></circle>
                   <circle
                     className="drop-shadow-[0_0_15px_rgba(131,174,255,0.4)] transition-all duration-1000 ease-out"
@@ -80,10 +80,10 @@ export default async function DashboardPage() {
                     fill="transparent"
                     r="45%"
                     stroke="url(#blueGradient)"
-                    stroke-dasharray="1000"
-                    stroke-dashoffset="300"
-                    stroke-linecap="round"
-                    stroke-width="12"
+                    strokeDasharray="1000"
+                    strokeDashoffset="300"
+                    strokeLinecap="round"
+                    strokeWidth="12"
                   ></circle>
                   <defs>
                     <linearGradient
@@ -93,8 +93,8 @@ export default async function DashboardPage() {
                       y1="0%"
                       y2="100%"
                     >
-                      <stop offset="0%" stop-color="#83aeff"></stop>
-                      <stop offset="100%" stop-color="#6ba0ff"></stop>
+                      <stop offset="0%" stopColor="#83aeff"></stop>
+                      <stop offset="100%" stopColor="#6ba0ff"></stop>
                     </linearGradient>
                   </defs>
                 </svg>
@@ -268,102 +268,41 @@ export default async function DashboardPage() {
                 Recent Workouts
               </h3>
               <button className="text-primary text-xs font-label font-bold uppercase tracking-widest hover:bg-primary/5 px-4 py-2 rounded-lg transition-all border border-primary/20">
-                View Analytics
+                Ver Todos
               </button>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left min-w-150">
-                <thead>
-                  <tr className="text-[10px] md:text-xs text-on-surface-variant uppercase font-label tracking-[0.2em] border-b border-white/5">
-                    <th className="pb-6 font-semibold">Activity</th>
-                    <th className="pb-6 font-semibold">Date / Time</th>
-                    <th className="pb-6 font-semibold">Duration</th>
-                    <th className="pb-6 font-semibold">Intensity</th>
-                    <th className="pb-6 text-right font-semibold">Output</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  <tr className="group hover:bg-white/2 transition-colors">
-                    <td className="py-6">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
-                          <span className="material-symbols-outlined">
-                            fitness_center
-                          </span>
-                        </div>
-                        <div>
-                          <p className="text-base font-bold text-on-surface">
-                            Upper Body Power
-                          </p>
-                          <p className="text-xs text-on-surface-variant">
-                            Hypertrophy Phase
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-6">
-                      <p className="text-sm text-on-surface">Today</p>
-                      <p className="text-xs text-on-surface-variant">
-                        08:30 AM
-                      </p>
-                    </td>
-                    <td className="py-6 text-sm text-on-surface font-medium">
-                      65 min
-                    </td>
-                    <td className="py-6">
-                      <span className="px-3 py-1 bg-error-container/20 text-error-dim text-[10px] font-bold uppercase rounded-lg tracking-widest border border-error-container/30">
-                        High
-                      </span>
-                    </td>
-                    <td className="py-6 text-right font-headline font-black text-on-surface text-lg">
-                      540{" "}
-                      <span className="text-[10px] font-normal text-on-surface-variant uppercase tracking-widest">
-                        kcal
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="group hover:bg-white/2 transition-colors">
-                    <td className="py-6">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-secondary-container/20 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-all duration-300">
-                          <span className="material-symbols-outlined">
-                            directions_run
-                          </span>
-                        </div>
-                        <div>
-                          <p className="text-base font-bold text-on-surface">
-                            Zone 2 Recovery
-                          </p>
-                          <p className="text-xs text-on-surface-variant">
-                            Cardio Health
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-6">
-                      <p className="text-sm text-on-surface">Yesterday</p>
-                      <p className="text-xs text-on-surface-variant">
-                        06:15 PM
-                      </p>
-                    </td>
-                    <td className="py-6 text-sm text-on-surface font-medium">
-                      45 min
-                    </td>
-                    <td className="py-6">
-                      <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase rounded-lg tracking-widest border border-primary/20">
-                        Moderate
-                      </span>
-                    </td>
-                    <td className="py-6 text-right font-headline font-black text-on-surface text-lg">
-                      320{" "}
-                      <span className="text-[10px] font-normal text-on-surface-variant uppercase tracking-widest">
-                        kcal
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+             {workouts.length === 0 ? (
+    <div className="flex flex-col items-center justify-center h-40 text-on-surface-variant">
+      <span className="material-symbols-outlined text-5xl mb-3">fitness_center</span>
+      <p className="font-label text-sm uppercase tracking-widest">No hay entrenamientos registrados</p>
+    </div>
+  ) : (
+    <div className="space-y-4">
+      {workouts.map(workout => (
+        <div key={workout.id} className="flex items-center justify-between p-5 bg-surface-container-high rounded-xl border border-white/5 hover:border-primary/20 transition-all">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+              <span className="material-symbols-outlined">fitness_center</span>
             </div>
+            <div>
+              <p className="font-headline font-bold text-on-surface">
+                {workout.routine?.name ?? 'Sin rutina'}
+              </p>
+              <p className="font-label text-xs text-on-surface-variant uppercase tracking-wider">
+                {new Date(workout.date).toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'short' })}
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-8">
+            <div className="text-center">
+              <p className="font-headline font-black text-xl text-on-surface">{workout.sets.length}</p>
+              <p className="font-label text-[10px] uppercase text-on-surface-variant">Series</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
           </div>
           {/* Recovery & CTA Sidebars */}
           <div className="md:col-span-12 lg:col-span-4 2xl:col-span-6 space-y-16">
@@ -414,7 +353,7 @@ export default async function DashboardPage() {
                   Weekly PR
                 </h4>
                 <p className="text-on-primary/70 text-sm max-w-50">
-                  You're currently trending 12% above last week's volume.
+                  Youre currently trending 12% above last weeks volume.
                 </p>
               </div>
               <button className="relative z-10 mt-auto w-full md:w-fit px-8 py-3 bg-on-primary text-primary font-bold text-sm rounded-xl active:scale-95 hover:shadow-xl hover:shadow-black/20 transition-all duration-200 uppercase tracking-widest">

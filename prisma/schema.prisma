@@ -29,6 +29,7 @@ model Exercise {
   createdAt   DateTime @default(now())
 
   sets        ExerciseSet[]
+  routines    RoutineExercise[]
 }
 
 model WorkoutLog {
@@ -56,11 +57,22 @@ model ExerciseSet {
 
 model Routine {
   id          String   @id @default(cuid())
-  name        String   // "Push", "Pull", "Legs"...
+  name        String
   description String?
   userId      String
   user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
 
   workouts    WorkoutLog[]
+  exercises   RoutineExercise[]  
+}
+
+model RoutineExercise {
+  id         String   @id @default(cuid())
+  routineId  String
+  routine    Routine  @relation(fields: [routineId], references: [id])
+  exerciseId String
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  sets       Int      @default(3)
+  reps       Int      @default(10)
 }

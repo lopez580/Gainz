@@ -3,8 +3,9 @@ import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
 
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
+        const { id } = await params
         const exercise = await prisma.exercise.findUnique({
             where: { id: params.id }
         })
@@ -18,11 +19,12 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
 }
 
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
         const body = await req.json()
+        const { id } = await params
         const exercise = await prisma.exercise.update({
-            where: { id: params.id },
+            where: { id },
             data: {
                 name: body.name,
                 description: body.description,
@@ -36,10 +38,11 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 
-export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
+        const { id } = await params
         await prisma.exercise.delete({
-            where: { id: params.id }
+            where: { id }
         })
         return NextResponse.json({ message: 'Ejercicio eliminado' })
     } catch (error) {

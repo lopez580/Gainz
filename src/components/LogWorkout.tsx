@@ -33,6 +33,12 @@ export default function LogWorkout({ isOpen, onclose, routines, exercises, userI
     const [activeTab, setActiveTab] = useState<'routine' | 'manual'>('routine')
     if (!isOpen) return null
 
+    const handleTabChange = (tab: 'routine' | 'manual') => {
+    setActiveTab(tab)
+    setSets([])
+    setSelectedRoutineId('')
+}
+
     const handleSave = async () => {
         if (sets.length === 0) return
         await fetch('/api/workouts', {
@@ -68,6 +74,25 @@ export default function LogWorkout({ isOpen, onclose, routines, exercises, userI
     const handleRemoveSet = (index: number) => {
         setSets(sets.filter((_, i) => i !== index))
     }
+
+    const handleRoutineSelect = async (routineId: string) => {
+        setSelectedRoutineId(routineId)
+
+        if(!routineId) {
+            setSets([])
+            return
+        }
+        const res = await fetch(`/api/routines/${routineId}`)
+        const data = await res.json()
+        if (data.exercises) {
+            setSets(data.exercises.map((re: any) => ({
+                exerciseId: re.exercise.id,
+                exerciseName: re.exercise.name,
+                reps: re.reps,
+                weight: 0
+            })))
+        }
+    }
     return (
 
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-surface-container-lowest/80 backdrop-blur-md">
@@ -84,7 +109,7 @@ export default function LogWorkout({ isOpen, onclose, routines, exercises, userI
                     {/* Tabs */}
                     <div className="flex border-b border-outline-variant/30">
                         <button
-                            onClick={() => setActiveTab('routine')}
+                            onClick={() => handleTabChange('routine')}
                             className={`px-6 py-3 font-headline font-bold text-xs md:text-sm tracking-widest uppercase transition-all ${activeTab === 'routine'
                                 ? 'border-b-2 border-primary text-primary'
                                 : 'text-on-surface-variant hover:text-on-surface'
@@ -93,7 +118,7 @@ export default function LogWorkout({ isOpen, onclose, routines, exercises, userI
                             From Routine
                         </button>
                         <button
-                            onClick={() => setActiveTab('manual')}
+                            onClick={() => handleTabChange('manual')}
                             className={`px-6 py-3 font-headline font-bold text-xs md:text-sm tracking-widest uppercase transition-all ${activeTab === 'manual'
                                 ? 'border-b-2 border-primary text-primary'
                                 : 'text-on-surface-variant hover:text-on-surface'
@@ -113,10 +138,10 @@ export default function LogWorkout({ isOpen, onclose, routines, exercises, userI
                             <div className="relative max-w-lg">
                                 <select
                                     value={selectedRoutineId}
-                                    onChange={(e) => setSelectedRoutineId(e.target.value)}
+                                    onChange={(e) => handleRoutineSelect(e.target.value)}
                                     className="w-full bg-surface-container-high border-none rounded-xl py-4 px-4 text-on-surface font-headline appearance-none focus:ring-2 focus:ring-primary/50 cursor-pointer"
                                 >
-                                    <option value="">Sin rutinas</option>
+                                    <option value="">Seleccionar</option>
                                     {routines.map(routine => (
                                         <option key={routine.id} value={routine.id}>{routine.name}</option>
                                     ))}
